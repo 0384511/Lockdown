@@ -3,28 +3,23 @@
 [ext_resource type="Script" uid="uid://dgpa2g1406d8w" path="res://controllers/scripts/fps_controller.gd" id="1_pgc1p"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://controllers/materials/player.tres" id="2_gldw4"]
 [ext_resource type="PackedScene" uid="uid://csj7vcqrenjsi" path="res://Weapons/Weapon.tscn" id="3_eikvl"]
-[ext_resource type="Script" uid="uid://da4bqfupciool" path="res://controllers/reticle.gd" id="3_xc2pf"]
 [ext_resource type="Resource" uid="uid://d31p6jsskwcfn" path="res://Weapons/Revolver.tres" id="4_bygp4"]
 [ext_resource type="Script" uid="uid://chelsy2m60l2o" path="res://controllers/scripts/interaction_cast.gd" id="4_tg6sc"]
-[ext_resource type="Theme" uid="uid://de2nek577lf7m" path="res://controllers/Themes/UI/Debug.tres" id="4_y677r"]
-[ext_resource type="Script" uid="uid://dvspsmhr73myh" path="res://controllers/scripts/debug_panel.gd" id="5_co0pi"]
 [ext_resource type="ArrayMesh" uid="uid://bri6y2g7u3d2h" path="res://Weapons/Models/Revolver/Revolver.res" id="5_rcx31"]
 [ext_resource type="ArrayMesh" uid="uid://bd7h6tcwyx7vd" path="res://Weapons/Models/Revolver/Cylinder.res" id="6_57us7"]
 [ext_resource type="Script" uid="uid://dkk1lhseynn15" path="res://controllers/scripts/State Machine/stateMachine.gd" id="6_co0pi"]
 [ext_resource type="ArrayMesh" uid="uid://ca6drlyd55u36" path="res://Weapons/Models/Revolver/Battery.res" id="7_5hww7"]
 [ext_resource type="Script" uid="uid://dd8ov1iyaklk5" path="res://controllers/scripts/State Machine/idle_player_state.gd" id="7_gshig"]
-[ext_resource type="LabelSettings" uid="uid://dskxen8j6183q" path="res://controllers/materials/Ammo Counter Label Settings.tres" id="8_fyafc"]
 [ext_resource type="Script" uid="uid://dv2uyfesuk4fh" path="res://controllers/scripts/State Machine/walking_player_state.gd" id="8_jmoha"]
 [ext_resource type="Script" uid="uid://7oev0hm280x0" path="res://controllers/scripts/State Machine/spriting_player_state.gd" id="9_bneyr"]
 [ext_resource type="Script" uid="uid://c7o2fiahsh0tl" path="res://controllers/scripts/State Machine/crouching_player_state.gd" id="10_jdr2h"]
-[ext_resource type="LabelSettings" uid="uid://ymbpk3yphr8i" path="res://controllers/materials/InteractionLabelSettings.tres" id="10_yvtcv"]
 [ext_resource type="Script" uid="uid://cednwk8gblcux" path="res://controllers/scripts/State Machine/sliding_player_state.gd" id="11_rk4xh"]
 [ext_resource type="Script" uid="uid://bttldsvuv6dwb" path="res://controllers/scripts/State Machine/jumping_player_state.gd" id="12_uovkr"]
 [ext_resource type="Script" uid="uid://ts5ba16nqwfv" path="res://controllers/scripts/State Machine/falling_player_state.gd" id="13_l8yvu"]
 [ext_resource type="Script" uid="uid://crj6eucr0c4ha" path="res://controllers/scripts/State Machine/dashing_player_state.gd" id="18_2lhxf"]
 [ext_resource type="Script" uid="uid://cdfdcxn0ohdeu" path="res://controllers/scripts/State Machine/slamming_player_state.gd" id="20_ijaog"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u6tj1"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bygp4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6tv51"]
 material = ExtResource("2_gldw4")
@@ -870,33 +865,9 @@ _data = {
 [sub_resource type="Animation" id="Animation_6a3ph"]
 resource_name = "Level Fade"
 length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UserInterface/Spawn Text/Spawn Label:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_teluw"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UserInterface/Spawn Text/Spawn Label:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i6wcq"]
 _data = {
@@ -906,14 +877,6 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ca8e7"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_r1u4k"]
-font_size = 48
-
-[sub_resource type="LabelSettings" id="LabelSettings_syckn"]
-font_size = 64
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_wsqmy"]
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fdopr"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -921,9 +884,18 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("CameraController/Camera3D:rotation")
+properties/2/path = NodePath("CameraController/Camera3D/WeaponRig/weaponAnimations:current_animation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("AnimationPlayer:current_animation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("CameraController/Camera3D:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("CameraController/Camera3D:position")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=1200792928]
 script = ExtResource("1_pgc1p")
@@ -931,7 +903,7 @@ MOUSE_SENSITIVITY = 0.15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=535941451]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_u6tj1")
+shape = SubResource("CylinderShape3D_bygp4")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2120339349]
 transform = Transform3D(0.75, 0, 0, 0, 1, 0, 0, 0, 0.75, 0, 0, 0)
@@ -995,176 +967,6 @@ shape = SubResource("SphereShape3D_ca8e7")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
 
-[node name="UserInterface" type="Control" parent="." unique_id=423490740]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="Reticle" type="CenterContainer" parent="UserInterface" unique_id=1504773305 node_paths=PackedStringArray("reticleLines", "playerController")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_xc2pf")
-reticleLines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
-playerController = NodePath("../..")
-
-[node name="Top" type="Line2D" parent="UserInterface/Reticle" unique_id=1162786787]
-position = Vector2(20, 20)
-points = PackedVector2Array(0, -5, 0, -15)
-width = 2.0
-
-[node name="Bottom" type="Line2D" parent="UserInterface/Reticle" unique_id=1473698330]
-position = Vector2(20, 20)
-points = PackedVector2Array(0, 5, 0, 15)
-width = 2.0
-
-[node name="Right" type="Line2D" parent="UserInterface/Reticle" unique_id=1133702572]
-position = Vector2(20, 20)
-points = PackedVector2Array(5, 0, 15, 0)
-width = 2.0
-
-[node name="Left" type="Line2D" parent="UserInterface/Reticle" unique_id=1325126609]
-position = Vector2(20, 20)
-points = PackedVector2Array(-5, 0, -15, 0)
-width = 2.0
-
-[node name="DebugPanel" type="PanelContainer" parent="UserInterface" unique_id=2119155103]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 210.0
-offset_bottom = 50.0
-theme = ExtResource("4_y677r")
-script = ExtResource("5_co0pi")
-
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel" unique_id=1254398149]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer" unique_id=1747534513]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Ammo" type="HBoxContainer" parent="UserInterface" unique_id=278733322]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -204.0
-offset_top = -142.0
-offset_right = -97.0
-offset_bottom = -54.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Clip" type="Label" parent="UserInterface/Ammo" unique_id=973624332]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "<null>"
-label_settings = ExtResource("8_fyafc")
-
-[node name="Label" type="Label" parent="UserInterface/Ammo" unique_id=2108093055]
-layout_mode = 2
-text = "/"
-label_settings = ExtResource("8_fyafc")
-
-[node name="Reserve" type="Label" parent="UserInterface/Ammo" unique_id=156006631]
-unique_name_in_owner = true
-layout_mode = 2
-text = "<null>"
-label_settings = ExtResource("8_fyafc")
-
-[node name="Points" type="HBoxContainer" parent="UserInterface" unique_id=1753319157]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = -259.0
-offset_right = 170.0
-offset_bottom = -171.0
-grow_vertical = 0
-
-[node name="Points" type="Label" parent="UserInterface/Points" unique_id=216122934]
-unique_name_in_owner = true
-layout_mode = 2
-text = "0"
-label_settings = ExtResource("8_fyafc")
-
-[node name="Health" type="HBoxContainer" parent="UserInterface" unique_id=337617635]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = -113.0
-offset_right = 170.0
-offset_bottom = -25.0
-grow_vertical = 0
-
-[node name="Health" type="Label" parent="UserInterface/Health" unique_id=243917676]
-unique_name_in_owner = true
-layout_mode = 2
-text = "100"
-label_settings = SubResource("LabelSettings_r1u4k")
-
-[node name="InteractionHbox" type="HBoxContainer" parent="UserInterface" unique_id=403452101]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -227.0
-offset_top = 120.0
-offset_right = 227.0
-offset_bottom = 187.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="InteractionLabel" type="Label" parent="UserInterface/InteractionHbox" unique_id=1286103416]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-label_settings = ExtResource("10_yvtcv")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Spawn Text" type="HBoxContainer" parent="UserInterface" unique_id=1691029743]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -283.0
-offset_bottom = -195.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Spawn Label" type="Label" parent="UserInterface/Spawn Text" unique_id=1691213281]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-text = "TestTest"
-label_settings = SubResource("LabelSettings_syckn")
-
 [node name="PlayerStateMachine" type="Node" parent="." unique_id=269961165 node_paths=PackedStringArray("currentState")]
 script = ExtResource("6_co0pi")
 currentState = NodePath("IdlePlayerState")
@@ -1211,17 +1013,6 @@ metadata/_custom_type_script = "uid://chrx5rfmff27h"
 [node name="SlammingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1158435371]
 script = ExtResource("20_ijaog")
 metadata/_custom_type_script = "uid://chrx5rfmff27h"
-
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=628074874]
-collision_layer = 2
-collision_mask = 2
-can_sleep = false
-lock_rotation = true
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1481191489]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_wsqmy")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1236917909]
 replication_config = SubResource("SceneReplicationConfig_fdopr")

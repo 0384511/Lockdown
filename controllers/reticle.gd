@@ -8,17 +8,22 @@ extends CenterContainer
 @export var dotColor : Color = Color.WHITE
 
 func _ready():
+	if not is_multiplayer_authority(): return
 	queue_redraw()
 
 func _process(delta):
+	if not is_multiplayer_authority(): return
 	adjustReticleLines()
 
 
 func _draw():
+	if not is_multiplayer_authority(): return
 	draw_circle(Vector2(20,20),dotRadius,dotColor)
 
 
 func adjustReticleLines():
+	if not is_multiplayer_authority(): return
+	if playerController == null: return
 	var vel = playerController.get_real_velocity()
 	var origin = Vector3(0,0,0)
 	var pos = Vector2(20,20)

@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var ANIMATIONPLAYER : AnimationPlayer = $AnimationPlayer
 @onready var CROUCH_SHAPECAST : Node3D = %ShapeCast3D
 @onready var weaponController : WeaponController = $CameraController/Camera3D/WeaponRig/Weapon
+@onready var hud = $UserInterface
 
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -67,14 +68,13 @@ func _ready():
 		CAMERA_CONTROLLER.current = false
 		return
 	CAMERA_CONTROLLER.make_current()
+	position = get_node("/root/World/Spawnpoint").position
 	Global.player = self
 	Global.playerCamera = CAMERA_CONTROLLER
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	#Prevents player from activating crouch cast
 	CROUCH_SHAPECAST.add_exception($".")
-	Global.playerHealth = Global.playerHealth
-	Global.playerPoints = Global.playerPoints
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -116,8 +116,9 @@ func updateInput(speed: float, acceleration: float, deceleration: float) -> void
 func updateVelocity() -> void:
 	if not is_multiplayer_authority(): return
 	move_and_slide()
-		
+
+@rpc("any_peer")
 func take_damage(damage, type):
-	if not is_multiplayer_authority(): return
+	print("TAKEN DAMAGE OOOOH NOOO")
 	Global.playerHealth -= damage
 	Global.updateHealth()

@@ -2,7 +2,6 @@ extends RayCast3D
 
 
 var collidedObject
-@onready var purchaseLabel = %InteractionLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,8 +15,8 @@ func _physics_process(delta: float) -> void:
 	if collidedObject:
 		if collidedObject.is_in_group("InteractableObject"):
 			collidedObject.update()
-			purchaseLabel.text = "Press F to interact with " + collidedObject.objectName
+			Global.interactionLabel.text = "Press F to interact with " + collidedObject.objectName
 			if Input.is_action_just_pressed("interact"):
 				collidedObject.interact()
 	else:
-		purchaseLabel.text = ""
+		Global.interactionLabel.text = ""

@@ -2,8 +2,7 @@ extends Node
 
 @onready var main_menu = $CanvasLayer/MainMenu
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
-@onready var hud = $CanvasLayer/HUD
-@onready var health_bar = $CanvasLayer/HUD/HealthBar
+@onready var hud = $UserInterface
 
 
 @onready var Player = preload("res://controllers/fps_controller.tscn")
@@ -54,6 +53,11 @@ func upnp_setup():
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Global.reserveLabel = %Reserve
+	Global.interactionLabel = %InteractionLabel
+	Global.clipLabel = %Clip
+	Global.pointsLabel = %Points
+	Global.healthLabel = %Health
 
 
 func _physics_process(delta):
@@ -83,6 +87,3 @@ func remove_player(peer_id):
 	var player = get_node_or_null(str(peer_id))
 	if player:
 		player.queue_free()
-
-func update_health_bar(health_value):
-	health_bar.value = health_value

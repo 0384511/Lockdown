@@ -50,10 +50,6 @@ var weaponDrop = preload("res://Scenes/Weapon Drop.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if not is_multiplayer_authority(): return
-	Global.reserveLabel = %Reserve
-	Global.clipLabel = %Clip
-	Global.pointsLabel = %Points
-	Global.healthLabel = %Health
 	Global.weaponManager = self
 	loadWeapon()
 	#Always add spawn weapons AFTER loading an empty inventory first
@@ -282,12 +278,9 @@ func shoot() -> void:
 					var query = PhysicsRayQueryParameters3D.create(origin, endpoint)
 					query.collide_with_bodies = true
 					var result = spaceState.intersect_ray(query)
-					
-					var hitPosition = result.get("position")
-					var hitNormal = result.get("normal")
 					var hitBody = result.get("collider")  # Get the object that was hit
 					if hitBody and hitBody.has_method("take_damage"):
-						hitBody.take_damage(weaponType.Damage, "bullet")  # Deal damage to the enemy
+						hitBody.take_damage.rpc_id(hitBody.get_multiplayer_authority(), weaponType.Damage, "bullet")  # Deal damage to the enemy
 					
 			else:
 				var accuracyAdjustment = Vector3 (
@@ -301,12 +294,10 @@ func shoot() -> void:
 				var query = PhysicsRayQueryParameters3D.create(origin, endpoint)
 				query.collide_with_bodies = true
 				var result = spaceState.intersect_ray(query)
-					
-				var hitPosition = result.get("position")
-				var hitNormal = result.get("normal")
 				var hitBody = result.get("collider")  # Get the object that was hit
+				print(hitBody)
 				if hitBody and hitBody.has_method("take_damage"):
-					hitBody.take_damage(weaponType.Damage, "bullet")  # Deal damage to the enemy
+					hitBody.take_damage.rpc_id(hitBody.get_multiplayer_authority(), weaponType.Damage, "bullet")  # Deal damage to the enemy
 					
 
 		if weaponGlobal.weaponBulletPhysics == "Projectile":
