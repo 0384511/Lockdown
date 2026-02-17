@@ -72,6 +72,11 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="EnterName" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1736859120]
+layout_mode = 2
+placeholder_text = "Enter name for others to see"
+alignment = 1
+
 [node name="SinglePlayer" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1335163066]
 layout_mode = 2
 text = "Single Player"
@@ -114,7 +119,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="UserInterface" unique_id=949750882 node_paths=PackedStringArray("reticleLines", "playerController")]
+[node name="Reticle" type="CenterContainer" parent="UserInterface" unique_id=949750882 node_paths=PackedStringArray("reticleLines")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,7 +134,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_0ddhe")
 reticleLines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
-playerController = NodePath("")
 
 [node name="Top" type="Line2D" parent="UserInterface/Reticle" unique_id=1732098349]
 position = Vector2(20, 20)
@@ -275,6 +279,7 @@ size_flags_horizontal = 6
 text = "TestTest"
 label_settings = SubResource("LabelSettings_cdpo3")
 
+[connection signal="text_submitted" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/EnterName" to="." method="_on_enter_name_text_submitted"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/SinglePlayer" to="." method="_on_single_player_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
