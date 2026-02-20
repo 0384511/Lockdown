@@ -11,6 +11,7 @@ extends CharacterBody3D
 @onready var weaponController : WeaponController = $CameraController/Camera3D/WeaponRig/Weapon
 @onready var hud = $UserInterface
 @onready var animationPlayer = $"Level Fade"
+@onready var playerlabelname = $testNameLabel
 
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -87,8 +88,8 @@ func _physics_process(delta):
 	
 	if stamina < 101:
 		stamina += 16.5 * delta
-	
-	
+
+	playerlabelname.text = str(multiplayer.get_unique_id())
 	## Add the gravity.
 	#if not is_on_floor():
 		#velocity.y -= gravity * delta
