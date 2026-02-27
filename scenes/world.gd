@@ -92,4 +92,5 @@ func remove_player(peer_id):
 
 
 func _on_enter_name_text_submitted(new_text: String) -> void:
-	var player_name = Global.player_name
+	Global.player_name = new_text
+	print(Global.player_name)

@@ -175,6 +175,9 @@ replication_config = SubResource("SceneReplicationConfig_hn37q")
 
 [node name="PlayersName" type="Label3D" parent="." unique_id=837014839]
 transform = Transform3D(-0.9999964, 0, -0.002670436, 0, 1, 0, 0.002670436, 0, -0.9999964, 0, 2.353263, 0)
+pixel_size = 0.02
 text = "filler"
+font_size = 40
+outline_size = 20
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

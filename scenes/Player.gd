@@ -7,7 +7,6 @@ signal health_changed(health_value)
 @onready var muzzle_flash = $Camera3D/Pistol/MuzzleFlash
 @onready var raycast = $Camera3D/RayCast3D
 @onready var nametag = $PlayersName
-var player_name = nametag.text
 var health = 3
 
 const SPEED = 10.0
@@ -27,6 +26,8 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
 	
+	nametag.text = Global.player_name
+	print(nametag.text)
 func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
