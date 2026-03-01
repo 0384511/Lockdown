@@ -1017,6 +1017,11 @@ metadata/_custom_type_script = "uid://chrx5rfmff27h"
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1236917909]
 replication_config = SubResource("SceneReplicationConfig_fdopr")
 
+[node name="NameTag" type="Label3D" parent="." unique_id=1732767394]
+transform = Transform3D(-0.99998176, 0, -0.00603878, 0, 1, 0, 0.00603878, 0, -0.99998176, 0, 2.3061433, 0)
+text = "failure 1
+"
+
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 
 [editable path="CameraController/Camera3D/WeaponRig/Weapon"]

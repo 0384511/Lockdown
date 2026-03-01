@@ -20,7 +20,7 @@ var clipLabel : Label
 var pointsLabel : Label
 var healthLabel: Label
 var interactionLabel: Label
-var player_name : String = ""
+var player_name : String = "test"
 
 func updateLabels(clipAmmo, reserveAmmo):
 	clipLabel.text = str(clipAmmo)
