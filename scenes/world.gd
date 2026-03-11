@@ -119,6 +119,7 @@ func assign_team(id):
 	print("Player ", id, " assigned to ", team)
 	if id == multiplayer.get_unique_id():
 		Global.myCurrentTeam = team
+		Global.player.updatePlayerModel()
 	rpc("receive_team_assignment", id, team)
 	
 
@@ -131,3 +132,5 @@ func receive_team_assignment(id, team):
 	if id == multiplayer.get_unique_id():
 		print("I am on team: ", team)
 		Global.myCurrentTeam = team
+		Global.player.updatePlayerModel()
+	

@@ -13,6 +13,8 @@ extends CharacterBody3D
 @onready var animationPlayer = $"Level Fade"
 @onready var playerlabelname = $testNameLabel
 @onready var stateMachine = $PlayerStateMachine
+@onready var copModel = $"CollisionShape3D/Cop model"
+@onready var robberModel = $"CollisionShape3D/Robber model"
 
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -33,7 +35,6 @@ var stamina = 100
 func _enter_tree():
 	print(name)
 	set_multiplayer_authority(str(name).to_int())
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
@@ -81,6 +82,10 @@ func _ready():
 	CROUCH_SHAPECAST.add_exception($".")
 	#THIS WILL BE ANNOUNCE NOT LEVEL CHANGE TEXT
 	#showLevelText("This is a test for if robbers got something")
+	
+	#This implementation allows us to add more teams
+	#such as spectator or some other team
+	
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -136,6 +141,12 @@ func take_damage(damage, type, team):
 			velocity = Vector3(0, 0, 0)
 			Global.playerHealth = 100
 
+
+func updatePlayerModel():
+	if Global.myCurrentTeam == "Cop":
+		copModel.visible = true
+	elif Global.myCurrentTeam == "Robber":
+		robberModel.visible = true
 #THIS NEEDS UPDATING TO NEW UI PLEASE
 #WILL BE ANNOUNCEMENT TEXT NOT LEVEL CHANGE
 #func showLevelText(spawnText):

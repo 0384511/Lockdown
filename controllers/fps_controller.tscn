@@ -899,6 +899,12 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath("CameraController/Camera3D:position")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("CollisionShape3D/Robber model:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("CollisionShape3D/Cop model:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=1200792928]
 script = ExtResource("1_pgc1p")
@@ -910,6 +916,7 @@ shape = SubResource("CylinderShape3D_bygp4")
 
 [node name="Robber model" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2120339349]
 transform = Transform3D(0.75, 0, 0, 0, 1, 0, 0, 0, 0.75, 0, 0, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_6tv51")
 
 [node name="Cop model" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1258850164]
@@ -928,6 +935,7 @@ fov = 90.0
 [node name="Weapon" parent="CameraController/Camera3D/WeaponRig" unique_id=606798246 node_paths=PackedStringArray("weaponAnimationPlayer") instance=ExtResource("3_eikvl")]
 transform = Transform3D(12, -2.43612e-14, -8.81873e-20, 0, -4.3439883e-05, 12, -2.43612e-14, -12, -4.3439883e-05, 0.25, -0.4, -0.5)
 weaponType = ExtResource("4_yvtcv")
+multiplayerWeaponPath = null
 weaponAnimationPlayer = NodePath("../weaponAnimations")
 
 [node name="WeaponMesh" parent="CameraController/Camera3D/WeaponRig/Weapon" index="0" unique_id=192297091]

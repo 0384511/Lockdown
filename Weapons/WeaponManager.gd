@@ -25,6 +25,7 @@ class_name WeaponController
 		if Engine.is_editor_hint():
 			loadWeapon()
 
+
 #********Animation names Index:********
 		# "fullReload"
 		# "emptyReload"
@@ -492,7 +493,8 @@ func addAmmo(clipAdd, reserveAdd):
 	weaponGlobal.reserveAmmo += reserveAdd
 	Global.clipLabel.text = str(weaponGlobal.clipAmmo)
 	Global.reserveLabel.text = str(weaponGlobal.reserveAmmo)
-	
+
+
 #func _physics_process(delta) -> void:
 
 #✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
