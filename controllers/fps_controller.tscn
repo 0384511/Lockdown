@@ -935,7 +935,6 @@ fov = 90.0
 [node name="Weapon" parent="CameraController/Camera3D/WeaponRig" unique_id=606798246 node_paths=PackedStringArray("weaponAnimationPlayer") instance=ExtResource("3_eikvl")]
 transform = Transform3D(12, -2.43612e-14, -8.81873e-20, 0, -4.3439883e-05, 12, -2.43612e-14, -12, -4.3439883e-05, 0.25, -0.4, -0.5)
 weaponType = ExtResource("4_yvtcv")
-multiplayerWeaponPath = null
 weaponAnimationPlayer = NodePath("../weaponAnimations")
 
 [node name="WeaponMesh" parent="CameraController/Camera3D/WeaponRig/Weapon" index="0" unique_id=192297091]

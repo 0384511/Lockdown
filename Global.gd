@@ -53,6 +53,15 @@ func _ready():
 func _process(delta):
 	pass
 
+@rpc("any_peer", "reliable")
+func replicateSpecificObject(bodyName, function, arg1):
+	var object = get_tree().get_root().get_node(bodyName)
+	print(object)
+	if arg1:
+		object.call(function, arg1)
+	else:
+		object.call(function)
+	
 
 #This function is for adding things to in game debug menu
 #Format:

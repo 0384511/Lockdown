@@ -130,6 +130,7 @@ func switchWeapon(direction: int) -> void:
 	# Equip the weapon at the new index
 	loadWeapon()
 	
+	
 func wrap_index(index: int, size: int) -> int:
 	# Wrap the index to stay within [0, size)
 	if size == 0:
@@ -151,6 +152,7 @@ func loadWeapon():
 			weaponType = load(weaponGlobal.weaponInventory[weaponGlobal.currentWeaponIndex])
 		else:
 			weaponType = load("res://Weapons/Empty Weapon.tres")
+		Global.rpc("replicateSpecificObject", Global.player.name, "replicateWeaponVisual", weaponGlobal.weaponInventory[weaponGlobal.currentWeaponIndex])
 	
 	#These variables hold all the data from the weapon and are access everywhere
 	#in this script for various core functionality
@@ -476,8 +478,18 @@ func replicateDroppedWeapon(weapon, clip, reserve, dropPos, dropVel, team):
 	dropInstance.parseAmmo(clip, reserve)
 	dropInstance.changeVel(dropVel)
 
-#This function is for adding ammo to the player, such as a ammo pickup
 
+func replicateWeaponVisual(weaponPath):
+	var replicatedWeapon = load(weaponPath)
+	weaponMesh.mesh = replicatedWeapon.mesh
+	weaponMagazine.mesh = replicatedWeapon.magazine
+	weaponBolt.mesh = replicatedWeapon.bolt
+	weaponShadow.mesh = replicatedWeapon.mesh
+
+
+
+
+#This function is for adding ammo to the player, such as a ammo pickup
 func addAmmo(clipAdd, reserveAdd):
 	#Method of adding ammo
 	var ammoNeeded = weaponGlobal.maxClipAmmo - weaponGlobal.clipAmmo
