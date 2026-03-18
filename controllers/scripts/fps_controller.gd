@@ -31,10 +31,26 @@ var cameraOffset : Vector3
 var gravity = 12
 var stamina = 100
 
-
 func _enter_tree():
 	print(name)
 	set_multiplayer_authority(str(name).to_int())
+
+func _ready():
+
+	if not is_multiplayer_authority():
+		CAMERA_CONTROLLER.current = false
+		return
+
+	CAMERA_CONTROLLER.make_current()
+
+	velocity = Vector3.ZERO
+
+	Global.player = self
+	Global.playerCamera = CAMERA_CONTROLLER
+
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	CROUCH_SHAPECAST.add_exception(self)
 
 func _unhandled_input(event: InputEvent) -> void:
 
