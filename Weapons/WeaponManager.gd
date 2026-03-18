@@ -462,7 +462,7 @@ func dropWeapon():
 		
 		#Fall back incase after you drop the weapon is not an empty weapon
 		if weaponType != load("res://Weapons/Empty Weapon.tres"):
-			weaponGlobal.weaponInventory[weaponGlobal.currentWeaponIndex] = load("res://Weapons/Empty Weapon.tres")
+			weaponGlobal.weaponInventory[weaponGlobal.currentWeaponIndex] = "res://Weapons/Empty Weapon.tres"
 			loadWeapon()
 
 		#Replicates the drop to the other players on the server
