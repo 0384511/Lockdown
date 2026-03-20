@@ -10,7 +10,6 @@ extends CharacterBody3D
 @onready var ANIMATIONPLAYER : AnimationPlayer = $AnimationPlayer
 @onready var CROUCH_SHAPECAST : Node3D = %ShapeCast3D
 @onready var weaponController : WeaponController = $CameraController/Camera3D/WeaponRig/Weapon
-@onready var hud = $UserInterface
 @onready var animationPlayer = $"Level Fade"
 @onready var playerlabelname = $testNameLabel
 @onready var stateMachine = $PlayerStateMachine

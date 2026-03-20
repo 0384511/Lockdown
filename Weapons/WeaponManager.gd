@@ -451,14 +451,8 @@ func dropWeapon():
 		dropInstance.parseAmmo(currentClip, currentReserve)
 		weaponGlobal.inventoryWeight -= weaponType.weight
 		
-		#This is for a specific weapon, however can be removed or changed
-		if weaponType == load("res://Weapons/Soul Knife.tres"):
-			dropVel = -Global.playerCamera.global_transform.basis.z.normalized() * (Global.player.velocity.length() + 20)
-			dropInstance.changeVel(dropVel)
-		else:
-			#This is the generic drop velocity
-			dropVel = -Global.playerCamera.global_transform.basis.z.normalized() * (Global.player.velocity.length() + 12)
-			dropInstance.changeVel(dropVel)
+		dropVel = -Global.playerCamera.global_transform.basis.z.normalized() * (Global.player.velocity.length() + 12)
+		dropInstance.changeVel(dropVel)
 		
 		#Fall back incase after you drop the weapon is not an empty weapon
 		if weaponType != load("res://Weapons/Empty Weapon.tres"):
