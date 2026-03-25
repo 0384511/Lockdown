@@ -14,7 +14,6 @@ extends CharacterBody3D
 @onready var animationPlayer = $"Level Fade"
 @onready var playerlabelname = $testNameLabel
 @onready var stateMachine = $PlayerStateMachine
-
 var _mouse_input : bool = false
 var _rotation_input : float
 var _tilt_input : float
@@ -112,10 +111,14 @@ func _physics_process(delta):
 		stamina += ceil(16.5 * delta)
 
 	playerlabelname.text = str(multiplayer.get_unique_id())
-
+	
+	
+	## Add the gravity.
+	#if not is_on_floor():
+		#velocity.y -= gravity * delta
 	CAMERA_CONTROLLER.rotation = lerp(CAMERA_CONTROLLER.rotation, CAMERA_CONTROLLER.rotation + cameraOffset, 0.1)
-	cameraOffset = lerp(cameraOffset, Vector3.ZERO, 0.05)
-
+	cameraOffset = lerp(cameraOffset, Vector3(0,0,0), 0.05)
+	
 
 func updateGravity(delta) -> void:
 
@@ -161,3 +164,14 @@ func take_damage(damage, type, team):
 
 		if Global.playerHealth <= 0:
 			Global.playerHealth = 100
+
+#Pausing system
+
+
+#THIS NEEDS UPDATING TO NEW UI PLEASE
+#WILL BE ANNOUNCEMENT TEXT NOT LEVEL CHANGE
+#func showLevelText(spawnText):
+	#%"Spawn Label".text = spawnText
+	#animationPlayer.play("Level Fade", -1, 1, false)
+	#await animationPlayer.animation_finished
+	#animationPlayer.play("Level Fade", -1, -1, true)
