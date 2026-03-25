@@ -4,6 +4,10 @@ extends Node
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 @onready var hud = $UserInterface
 
+@onready var GUI = $GUItasktest
+@onready var GUI_viewport = %SubViewport
+@export var GUI_window: Window 
+
 @onready var Player = preload("res://controllers/fps_controller.tscn")
 
 @onready var cop_spawns = $SpawnPoints2/Cops.get_children()
@@ -50,6 +54,40 @@ func _on_join_button_pressed():
 	enet_peer.create_client(address_entry.text, PORT)
 	multiplayer.multiplayer_peer = enet_peer
 
+#func _on_multiplayer_spawner_spawned(node):
+	#if node.is_multiplayer_authority():
+		#node.health_changed.connect(update_health_bar)
+func upnp_setup():
+	var upnp = UPNP.new()
+	
+	var discover_result = upnp.discover()
+	assert(discover_result == UPNP.UPNP_RESULT_SUCCESS, "UPNP Discover Failed! Error %s" % discover_result)
+
+	assert(upnp.get_gateway() and upnp.get_gateway().is_valid_gateway(), "UPNP Invalid Gateway!")
+
+	var map_result = upnp.add_port_mapping(PORT)
+	assert(map_result == UPNP.UPNP_RESULT_SUCCESS, "UPNP Port Mapping Failed! Error %s" % map_result)
+	
+	print("Success! Join Address: %s" % upnp.query_external_address())
+
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Global.reserveLabel = %Reserve
+	Global.interactionLabel = %InteractionLabel
+	Global.clipLabel = %Clip
+	Global.pointsLabel = %Points
+	Global.healthLabel = %Health
+	GUI.hide()
+
+func _physics_process(_delta):
+	pass
+	#if tracked:
+		#get_tree().call_group("enemy", "update_target_location", player.global_transform.origin)
+
+func _unhandled_input(_event):
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
 
 func _on_single_player_button_pressed():
 
@@ -75,9 +113,7 @@ func add_player(peer_id):
 
 
 func remove_player(peer_id):
-
-	var player = get_node_or_null(str(peer_id))
-
+	player = get_node_or_null(str(peer_id))
 	if player:
 		player.queue_free()
 
@@ -140,3 +176,18 @@ func receive_team_assignment(id, team):
 
 	if id == multiplayer.get_unique_id():
 		Global.myCurrentTeam = team
+
+
+func _on_guitasktest_pressed() -> void:
+	main_menu.hide()
+	get_tree().change_scene_to_file("res://gameMechanics/hacking_minitask.tscn")
+
+
+func _GUI_window_open(_body: Player) -> void:
+	var minitask = preload("res://gameMechanics/hacking_minitask.tscn").instantiate()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE # Release mouse
+	GUI.show()
+	GUI_viewport.add_child(minitask)
+	print("player interacted with minitask")
+	if GUI_window != null:
+		GUI_window.emit_signal("close_requested")
