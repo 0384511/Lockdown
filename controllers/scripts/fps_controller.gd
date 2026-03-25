@@ -10,10 +10,12 @@ extends CharacterBody3D
 @onready var ANIMATIONPLAYER : AnimationPlayer = $AnimationPlayer
 @onready var CROUCH_SHAPECAST : Node3D = %ShapeCast3D
 @onready var weaponController : WeaponController = $CameraController/Camera3D/WeaponRig/Weapon
-@onready var hud = $UserInterface
 @onready var animationPlayer = $"Level Fade"
 @onready var playerlabelname = $testNameLabel
 @onready var stateMachine = $PlayerStateMachine
+@onready var copModel = $"CollisionShape3D/Cop model"
+@onready var robberModel = $"CollisionShape3D/Robber model"
+
 var _mouse_input : bool = false
 var _rotation_input : float
 var _tilt_input : float
@@ -28,11 +30,8 @@ var cameraOffset : Vector3
 var gravity = 12
 var stamina = 100
 
-
 func _enter_tree():
-	print(name)
 	set_multiplayer_authority(str(name).to_int())
-
 
 func _ready():
 
@@ -50,7 +49,6 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	CROUCH_SHAPECAST.add_exception(self)
-
 
 func _unhandled_input(event: InputEvent) -> void:
 
@@ -156,7 +154,6 @@ func updateVelocity() -> void:
 
 @rpc("any_peer")
 func take_damage(damage, type, team):
-
 	if team != Global.myCurrentTeam:
 
 		Global.playerHealth -= damage
@@ -165,6 +162,12 @@ func take_damage(damage, type, team):
 		if Global.playerHealth <= 0:
 			Global.playerHealth = 100
 
+
+func updatePlayerModel():
+	if Global.myCurrentTeam == "Cop":
+		copModel.visible = true
+	elif Global.myCurrentTeam == "Robber":
+		robberModel.visible = true
 #Pausing system
 
 

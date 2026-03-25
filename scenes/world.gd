@@ -109,7 +109,6 @@ func add_player(peer_id):
 
 	var player = Player.instantiate()
 	player.name = str(peer_id)
-
 	add_child(player)
 
 	player.set_multiplayer_authority(peer_id)
@@ -160,9 +159,10 @@ func assign_team(id):
 	teams[id] = team
 
 	print("Player ", id, " assigned to ", team)
-
+	if id == multiplayer.get_unique_id():
+		Global.myCurrentTeam = team
+		Global.player.updatePlayerModel()
 	rpc("receive_team_assignment", id, team)
-
 	spawn_player(id, team)
 
 
@@ -185,10 +185,19 @@ func receive_team_assignment(id, team):
 
 	teams[id] = team
 
-	print("Synced: Player ", id, " is ", team)
-
 	if id == multiplayer.get_unique_id():
 		Global.myCurrentTeam = team
+		Global.player.updatePlayerModel()
+		
+	var player = get_node(str(id))
+	var spawn_point
+
+	if team == "Cop":
+		spawn_point = cop_spawns.pick_random()
+	else:
+		spawn_point = robber_spawns.pick_random()
+
+	player.global_position = spawn_point.global_position
 		
 func deboggled(): #this probably isnt the best way to do this but it works
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
