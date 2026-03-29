@@ -78,7 +78,8 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	#Prevents player from activating crouch cast
 	CROUCH_SHAPECAST.add_exception($".")
-
+	Name_Tag.text = Global.player_name
+	print(Name_Tag.text)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return

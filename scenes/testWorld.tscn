@@ -89,6 +89,11 @@ text = "Host"
 layout_mode = 2
 text = "Join"
 
+[node name="AddressEntry" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=459800446]
+layout_mode = 2
+placeholder_text = "Enter Address to Join Here"
+alignment = 1
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1971673780]
 _spawnable_scenes = PackedStringArray("uid://c3ffql15mo0aj")
 spawn_path = NodePath("..")

@@ -88,3 +88,9 @@ func remove_player(peer_id):
 	var player = get_node_or_null(str(peer_id))
 	if player:
 		player.queue_free()
+
+
+
+func _on_enter_name_text_submitted(new_text: String) -> void:
+	Global.player_name = new_text
+	print(Global.player_name)
