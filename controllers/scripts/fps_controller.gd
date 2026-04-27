@@ -10,7 +10,7 @@ extends CharacterBody3D
 @onready var CROUCH_SHAPECAST : Node3D = %ShapeCast3D
 @onready var weaponController : WeaponController = $CameraController/Camera3D/WeaponRig/Weapon
 @onready var hud = $UserInterface
-@onready var Name_Tag = $NameTag
+@onready var NameTag = $NameTag
 
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -78,8 +78,8 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	#Prevents player from activating crouch cast
 	CROUCH_SHAPECAST.add_exception($".")
-	Name_Tag.text = Global.player_name
-	print(Name_Tag.text)
+	NameTag.text = Global.player_name
+	print(NameTag.text)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
