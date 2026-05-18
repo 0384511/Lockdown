@@ -224,4 +224,4 @@ func _GUI_window_open(_body: Player) -> void:
 
 
 func _on_Quit_button_pressed() -> void:
-	print("just crash the game or something idk")
+	get_tree().quit()

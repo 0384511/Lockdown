@@ -83,6 +83,7 @@ oversampling_override = 1.0
 title = "Minitask test"
 initial_position = 2
 size = Vector2i(900, 500)
+visible = false
 transient_to_focused = true
 exclusive = true
 script = ExtResource("3_ftq4a")
@@ -391,7 +392,6 @@ layout_mode = 2
 text = "aaaawagga"
 
 [node name="PauseLayer" type="CanvasLayer" parent="." unique_id=957366646]
-visible = false
 
 [node name="PausePanel" type="Panel" parent="PauseLayer" unique_id=912028623]
 anchors_preset = 8
@@ -426,14 +426,14 @@ size_flags_vertical = 1
 text = "PAUSED"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="PauseLayer/PausePanel/PauseVbox" unique_id=1246233509]
+[node name="Label2" type="Label" parent="PauseLayer/PausePanel/PauseVbox" unique_id=1908489897]
 layout_mode = 2
-text = "ooheehehee"
+text = "Press 'P' To Unpause"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="PauseLayer/PausePanel/PauseVbox" unique_id=2046067808]
 layout_mode = 2
-text = "Button that does nothing"
+text = "Quit Game"
 
 [node name="ItemCollectionVolume" parent="." unique_id=409276444 instance=ExtResource("13_dbplf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.826765, 2.4615893, -0.73392963)
