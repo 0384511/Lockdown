@@ -200,19 +200,30 @@ func pause(): #this probably isnt the best way to do this but it works
 	print(str(Global.isPaused))
 	
 
-# player interacting with minitask
-func _GUI_window_open(body: Player) -> void:
-	var minitask = preload("res://gameMechanics/hacking_minitask.tscn").instantiate()
 
-	Global.taskMode = true
-	if body.is_multiplayer_authority():
-		var player_group = get_tree().get_first_node_in_group("player_group")
-		player_group.is_interacting = true
+# GUI window code :
+
+var minitask = preload("res://gameMechanics/hacking_minitask.tscn").instantiate()
+var active_instance: Node = null
+
+func _GUI_window_open(_body: Player) -> void:
+	if _body.is_multiplayer_authority():
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE # Release mouse
+		Global.taskMode = true
 		GUI.show()
 		GUI_viewport.add_child(minitask)
 		print("player interacted with minitask")
 
-# player quits window:
+# player quits window
 		if GUI_window != null:
+			swap_to_new_instance()
 			GUI_window.emit_signal("close_requested")
+			Global.taskMode = false
+			print("player closed minitask")
+
+func swap_to_new_instance():
+	if is_instance_valid(active_instance):
+		active_instance.queue_free()
+		var new_instance = minitask.instantiate()
+		add_child(new_instance)
+		active_instance = new_instance

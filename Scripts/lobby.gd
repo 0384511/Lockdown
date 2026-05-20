@@ -203,12 +203,7 @@ func pause(): #this probably isnt the best way to do this but it works
 	elif Global.isPaused == false:
 		pauseHUD.visible = false
 	print(str(Global.isPaused))
-	
 
-
-func _on_guitasktest_pressed() -> void:
-	main_menu.hide()
-	get_tree().change_scene_to_file("res://gameMechanics/hacking_minitask.tscn")
 
 
 # GUI window code :
@@ -223,10 +218,13 @@ func _GUI_window_open(_body: Player) -> void:
 		GUI.show()
 		GUI_viewport.add_child(minitask)
 		print("player interacted with minitask")
+
+# player quits window
 		if GUI_window != null:
 			swap_to_new_instance()
 			GUI_window.emit_signal("close_requested")
 			Global.taskMode = false
+			print("player closed minitask")
 
 func swap_to_new_instance():
 	if is_instance_valid(active_instance):
