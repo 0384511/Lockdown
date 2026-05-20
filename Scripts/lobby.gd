@@ -230,7 +230,7 @@ func _GUI_window_open(_body: Player) -> void:
 
 func _on_Quit_button_pressed() -> void:
 	get_tree().quit()
-	if _body.is_multiplayer_authority():
+	if player.is_multiplayer_authority():
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE # Release mouse
 		Global.taskMode = true
 		GUI.show()
