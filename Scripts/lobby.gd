@@ -82,8 +82,14 @@ func _ready() -> void:
 	Global.healthLabel = %Health
 	Global.totalValue = 0
 	GUI.hide()
+	if Global.isMainMenu == false:
+		main_menu.hide()
+		hud.show()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	print(Input.get_joy_name(0))
 	get_viewport().set_embedding_subwindows(false)
+	Global.recreatePlayers()
+	
 	
 	#var DebugPanel = debWin.instantiate()
 	#add_child(DebugPanel)
@@ -168,13 +174,15 @@ func spawn_player(id, team):
 	var player = get_node(str(id))
 
 	var spawn_point
-
+ 
 	if team == "Cop":
 		spawn_point = cop_spawns.pick_random()
+		Global.player.spawnpoint = cop_spawns
 	else:
 		spawn_point = robber_spawns.pick_random()
+		Global.player.spawnpoint = robber_spawns
 
-	player.global_position = spawn_point.global_position
+	player.global_position = spawn_point.global_position 
 
 
 @rpc("any_peer", "reliable")
@@ -229,8 +237,7 @@ func _GUI_window_open(_body: Player) -> void:
 
 
 func _on_Quit_button_pressed() -> void:
-	get_tree().quit()
-	if _body.is_multiplayer_authority():
+	if player.is_multiplayer_authority():
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE # Release mouse
 		Global.taskMode = true
 		GUI.show()
@@ -250,3 +257,6 @@ func swap_to_new_instance():
 		var new_instance = minitask.instantiate()
 		add_child(new_instance)
 		active_instance = new_instance
+
+func _on_exit_game_pressed() -> void:
+	get_tree().quit()
