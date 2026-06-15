@@ -19,16 +19,20 @@ var clipLabel : Label
 var pointsLabel : Label
 var healthLabel: Label
 var interactionLabel: Label
-var player_name : String = "test"
-
+var isPaused = false
 var myCurrentTeam : String
+
+var totalValue = 0
+
+var taskMode = false
+var isMainMenu = true
 
 func updateLabels(clipAmmo, reserveAmmo):
 	clipLabel.text = str(clipAmmo)
 	reserveLabel.text = str(reserveAmmo)
 
 func updatePoints():
-	pointsLabel.text = str(playerPoints)
+	pointsLabel.text = str(totalValue)
 
 func updateHealth():
 	#DEPRECATED FUNCTION but still here for old code
@@ -60,6 +64,24 @@ func replicateSpecificObject(bodyName, function, arg1):
 		object.call(function, arg1)
 	else:
 		object.call(function)
+
+@rpc("reliable", "any_peer")
+func changeScene(sceneString):
+	var players = get_tree().get_nodes_in_group("player")
+	for i in players:
+		i.reparent(get_tree().root, false) 
+	get_tree().change_scene_to_file(sceneString)
+
+func recreatePlayers():
+	var players = get_tree().get_nodes_in_group("player")
+	if players:
+		for o in players:
+			o.reparent(get_tree().root.get_node("World"), false)
+	
+	#Recursivley gather all players and move them to root node
+	#Change Scene
+	#Move them back in
+	
 	
 
 #This function is for adding things to in game debug menu
@@ -68,3 +90,8 @@ func replicateSpecificObject(bodyName, function, arg1):
 
 #Example formatting
 #Global.debug.addProperty("Stamina", stamina, 2)
+
+#When adding anything to the scene that needs to be deleted on a scene change, use this:
+#get_tree().root.get_node("World")
+#This adds it to the scene root and not the game root
+#This should not be used for persistent objects (such as the player/s)
